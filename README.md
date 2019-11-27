@@ -2,7 +2,6 @@
 Desafio feito pelo professor de Linguagem de Programação, o desafio consiste em 
 criar um programa com as seguintes funcionalidades:
 
-
 * Entrar dados.
 * Listar dados na tela.
 * Pesquisar um registro por nome.
@@ -13,3 +12,13 @@ criar um programa com as seguintes funcionalidades:
 * Altera dados.
 * Exclui dados.
 * Saída.
+
+## Arquivo.txt
+
+Onde ficam salvos os usuarios cadastrados.
+
+## Contador.txt
+
+Onde ficam salvos o numero de contatos salvos.
+
+ **Toda a estrutura do programa foi passada pelo professor.**
