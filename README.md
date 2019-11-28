@@ -1,4 +1,4 @@
-# Desafio-LP
+# Desafio-Linguagem de Programação
 Desafio feito pelo professor de Linguagem de Programação, o desafio consiste em 
 criar um programa com as seguintes funcionalidades:
 
