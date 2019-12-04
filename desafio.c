@@ -58,7 +58,6 @@ adicionarContato(struct dados *contato,int tam){
         printf("Erro ao abrir o arquivo.\n");
         exit(0);
     }
-    getchar();
     printf("Digite o nome:\n->");
     gets(contato->nome);
     printf("Digite o seu estado civil:\n->");
@@ -327,10 +326,8 @@ alterarDados(struct dados *contato,int tam){
     FILE *p;
     int n_reg;
     int n_bytes;
-    int valor;
 
-    printf("Qual dados voce deseja alterar?");
-    scanf("%d",&dado);
+
 
     n_reg = pesquisa(contato, tam);     //pesquisa o registro no arquivo
     n_bytes = tam * n_reg;
@@ -340,12 +337,18 @@ alterarDados(struct dados *contato,int tam){
     fseek(p,n_bytes,0);       //posioiona o ponteiro do arquivo no registro a ser alterado
     fread(contato, tam, 1, p );  //le registro do arquivo
 
-    printf("Digite o valor que voce deseja alterar:\n->");
-    scanf("%d",&valor);
-    printf("\n");
-
-
-    contato->salario = valor;
+    printf("Digite o nome:\n->");
+    gets(contato->nome);
+    printf("Digite o seu estado civil:\n->");
+    gets(contato->estadoCivil);
+    printf("Digite o dia do seu nascimento:\n->");
+    scanf("%d",&contato->diaNasc);
+    printf("Digite o mes do seu aniversario:\n->");
+    scanf("%d",&contato->mesNasc);
+    printf("Digite o ano do seu nascimento:\n->");
+    scanf("%d",&contato->anoNasc);
+    printf("Digite o valor do seu salario:\n->");
+    scanf("%d",&contato->salario);
 
     fseek(p,n_bytes,0);    //posiciona o ponteiro do arquivo no inicio do regisro a ser alterado
     fwrite(contato, tam,1,p);  //escreve o registro no arquivo
@@ -412,6 +415,7 @@ do{
             break;
         }
         case 8:{
+            alterarDados(&contato,tam);
             break;
         }
         case 9:{
@@ -419,7 +423,6 @@ do{
             break;
         }
         case 0:{
-            alterarDados(&contato,tam);
             break;
         }
         default:{
