@@ -10,6 +10,39 @@ struct dados {
     int salario;
 };
 
+int pesquisa(struct dados *ps, int tam){
+    FILE *p;
+    FILE *p1;
+
+    char nome1[20];
+    int i=0,y, x;
+    int cont;
+
+    printf("Informe um nome para pesquisa: \n");
+    gets(nome1);
+
+    p1 = fopen("contador.txt", "r");
+    fscanf(p1,"%d",&cont);
+    fclose(p1);
+
+    p = fopen("arquivo.txt", "r");
+
+    for(y=0;y<cont;y++){
+        fread(ps,tam,1,p);
+        for(x = 0; nome1[x] != '\0';x++){
+            if(nome1[x] != ps -> nome[x]){
+                break;
+            }
+        }
+
+        if(nome1[x] == '\0' && ps -> nome[x] == '\0'){
+            return y;
+        }
+    }
+
+    return -1;
+}
+
 adicionarContato(struct dados *contato,int tam){
 
     FILE *p, *p1;
@@ -85,7 +118,6 @@ listarDados(struct dados *contato,int tam){
 pesquisarNome(struct dados *contato,int tam){
 
     char nomeP[20];
-    getchar();
     printf("Digite o nome para pesquisa:\n->");
     gets(nomeP);
 
@@ -124,7 +156,6 @@ pesquisarNome(struct dados *contato,int tam){
 pesquisarEstadoCivil(struct dados *contato,int tam){
 
     char estadoCivilP[9];
-    getchar();
     printf("Digite o estado civil para pesquisa:\n->");
     gets(estadoCivilP);
 
@@ -241,40 +272,88 @@ pesquisarFaixaSalarial(struct dados *contato,int tam){
 
 deletarContato(struct dados *contato,int tam){
 
-    char nomeP[20];
-    getchar();
-    printf("Digite o nome do usuario que voce deseja deletar:\n->");
-    gets(nomeP);
+    FILE *p;
+    int n_reg;
+    int n_bytes;
 
-    FILE *p,*p1;
-    int cont = 0;
-    int comprimentoArq;
+    n_reg = pesquisa(contato, tam);     //pesquisa o registro no arquivo
+    n_bytes = tam * n_reg;
 
-    p1 = fopen("contador.txt","r");
-    fscanf(p1,"%d",&cont);
-    fclose(p1);
+    p = fopen("arquivo.txt", "r+");
 
-    if((p = fopen("arquivo.txt","r"))== NULL){
-        printf("Erro ao abrir o arquivo.\n");
-        exit(0);
-    }
-    for(int i = 0 ; i < cont ; i++){
-        comprimentoArq = i*tam;       //calcula o n. de bytes para posicionar o ponteiro do arquivo
+    fseek(p,n_bytes,0);       //posioiona o ponteiro do arquivo no registro a ser alterado
+    fread(contato, tam, 1, p );  //le registro do arquivo
 
-        fseek(p,comprimentoArq,0);    //posiciona o ponteiro no inicio do registro dentro do arquivo
-        fread(contato,tam,1,p);            //le o registro
-        if(contato -> nome[0] != '*'){         //verifica se esta apagado
-            if(!strcmp(nomeP,contato->nome)){
-                *contato->nome = '*';
-                fseek(p,sizeof(struct dados) * i,0);
-                fwrite(contato,sizeof(struct dados),1,p);
-                printf("Usuario deletado com sucesso!\n");
-            }
-        }
-    }
-        fclose(p);
+    contato->nome[0] = '*';
+
+    fseek(p,n_bytes,0);    //posiciona o ponteiro do arquivo no inicio do regisro a ser alterado
+    fwrite(contato, tam,1,p);  //escreve o registro no arquivo
+
+    fclose(p);
 
 }
+
+alterarFaixaSalarial(struct dados *contato,int tam){
+
+    FILE *p;
+    int n_reg;
+    int n_bytes;
+    int valor;
+
+    n_reg = pesquisa(contato, tam);     //pesquisa o registro no arquivo
+    n_bytes = tam * n_reg;
+
+    p = fopen("arquivo.txt", "r+");
+
+    fseek(p,n_bytes,0);       //posioiona o ponteiro do arquivo no registro a ser alterado
+    fread(contato, tam, 1, p );  //le registro do arquivo
+
+    printf("Digite o valor que voce deseja alterar:\n->");
+    scanf("%d",&valor);
+    printf("\n");
+
+
+    contato->salario = valor;
+
+    fseek(p,n_bytes,0);    //posiciona o ponteiro do arquivo no inicio do regisro a ser alterado
+    fwrite(contato, tam,1,p);  //escreve o registro no arquivo
+
+    fclose(p);
+
+}
+
+alterarDados(struct dados *contato,int tam){
+
+    FILE *p;
+    int n_reg;
+    int n_bytes;
+    int valor;
+
+    printf("Qual dados voce deseja alterar?");
+    scanf("%d",&dado);
+
+    n_reg = pesquisa(contato, tam);     //pesquisa o registro no arquivo
+    n_bytes = tam * n_reg;
+
+    p = fopen("arquivo.txt", "r+");
+
+    fseek(p,n_bytes,0);       //posioiona o ponteiro do arquivo no registro a ser alterado
+    fread(contato, tam, 1, p );  //le registro do arquivo
+
+    printf("Digite o valor que voce deseja alterar:\n->");
+    scanf("%d",&valor);
+    printf("\n");
+
+
+    contato->salario = valor;
+
+    fseek(p,n_bytes,0);    //posiciona o ponteiro do arquivo no inicio do regisro a ser alterado
+    fwrite(contato, tam,1,p);  //escreve o registro no arquivo
+
+    fclose(p);
+
+}
+
 int main(){
 
 
@@ -301,7 +380,7 @@ do{
     printf("0 - Sair\n");
     printf("-> ");
     scanf("%d",&acao);
-
+    getchar();
 
     switch(acao){
         case 1:{
@@ -329,6 +408,7 @@ do{
             break;
         }
         case 7:{
+            alterarFaixaSalarial(&contato,tam);
             break;
         }
         case 8:{
@@ -339,6 +419,7 @@ do{
             break;
         }
         case 0:{
+            alterarDados(&contato,tam);
             break;
         }
         default:{

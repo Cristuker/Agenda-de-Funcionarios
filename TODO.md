@@ -1,13 +1,13 @@
    [x] – entra dados.
    [x] – lista dados na tela.
    [x] – pesquisar um registro por nome.
-   [ ] – pesquisa por estado civil
-   [ ] – pesquisar os aniversariantes de um determinado mês.
-   [ ] – pesquisa por faixa salarial
+   [x] – pesquisa por estado civil
+   [x] – pesquisar os aniversariantes de um determinado mês.
+   [x] – pesquisa por faixa salarial
    [ ] - altera valor do salário
    [ ] – altera dados.
-   [ ] – exclui dados.
-   [ ] - saída
+   [x] – exclui dados.
+   [x] - saída
 
 ## Estrutura: nome, data de nascimento, estado civil,  salário. 
 ## A estrutura de dados deve ser variável local na função main().
