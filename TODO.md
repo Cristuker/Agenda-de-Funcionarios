@@ -4,8 +4,8 @@
    [x] – pesquisa por estado civil
    [x] – pesquisar os aniversariantes de um determinado mês.
    [x] – pesquisa por faixa salarial
-   [ ] - altera valor do salário
-   [ ] – altera dados.
+   [x] - altera valor do salário
+   [x] – altera dados.
    [x] – exclui dados.
    [x] - saída
 
@@ -14,7 +14,7 @@
 ## O programa deve ser finalizado pelo usuário
     struct dados {
             char nome[20];
-            char estadoCivil[9];
+            char estadoCivil[9];C
             int diaNasc;
             int mesNasc;
             int anoNasc;
