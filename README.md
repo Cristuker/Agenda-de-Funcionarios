@@ -20,5 +20,7 @@ Onde ficam salvos os usuarios cadastrados.
 ## Contador.txt
 
 Onde ficam salvos o numero de contatos salvos.
+
   **Antes de rodar tenha certeza que tem um valor inteiro no contador.txt**
+
   **Toda a estrutura do programa foi passada pelo professor.**
